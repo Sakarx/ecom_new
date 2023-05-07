@@ -27,8 +27,11 @@ const Cards = () => {
     ]);
   return (
 
-    <div className='border border-solid m-4 p-4'>
-    <Card/>
+    <div className='border border-solid flex flex-row m-4 p-4'>
+    {products.map((product,key) => {
+       return  <Card  key={key} product={product} />
+    })}
+
     </div>
   );
 }
