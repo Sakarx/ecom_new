@@ -6,7 +6,7 @@ const Navbar = () => {
     <div>
 <div className="bg-base-100 navbar">
   <div className="flex-1">
-    <a className="btn btn-ghost normal-case text-xl">GC-CSIT</a>
+    <a className="btn btn-ghost normal-case text-xl" href='#'>GC-CSIT</a>
   </div>
   <div className="flex-none">
     <div className="dropdown dropdown-end">

@@ -1,7 +1,13 @@
 import React, {useState} from 'react'
 import Card from './Card';
+import CartItem from './CartItem';
+
+const PAGE_PRODUCTS = 'products';
+const PAGE_CART = 'cart';
 
 const Cards = () => {
+    const [cart, setCart] = useState([]);
+    const [page, setPage] = useState(PAGE_PRODUCTS);
     const [products] = useState([
         {
             "id": 1,
@@ -25,14 +31,52 @@ const Cards = () => {
             "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
             }
     ]);
-  return (
 
+    const navigateTo = (targetPage)=>{
+      setPage(targetPage);
+    }
+
+    const addToCart = (product)=>{
+      setCart([...cart,product]);
+    }
+
+    const removeFromCart = (product)=>{
+      setCart(
+        cart.filter(item=> item!== product)
+      );
+    }
+
+    const renderCart = ()=>{
+      return (
+      <CartItem cart={cart} removeFromCart={removeFromCart}/>
+      );
+    }
+
+    console.log("cartItems",cart);
+
+  return (
+    <>
+    <header className='bg-slate-400 flex justify-center m-4 p-4 text-white'>
+      
+        {page === PAGE_CART ? (
+        <button onClick={()=> navigateTo(PAGE_PRODUCTS)}> Back to Products
+        </button>
+        )
+        :(
+          <button onClick={()=> navigateTo(PAGE_CART)}> Go to Cart ({cart.length})
+          </button>
+        )}
+
+    </header>
+    { page === PAGE_PRODUCTS && (
     <div className='border border-solid flex flex-row m-4 p-4'>
     {products.map((product,key) => {
-       return  <Card  key={key} product={product} />
+       return  <Card  key={key} product={product} addToCart={addToCart}/>
     })}
-
     </div>
+     )}
+     {page === PAGE_CART && renderCart()}
+    </>
   );
 }
 
